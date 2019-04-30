@@ -59,6 +59,13 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
 #######################################
 ## Functions that require a pk match ##
 #######################################
+def add_username(request, pk):
+    username = None
+    if request.user.is_authenticated:
+        username = request.user.username
+    post = get_object_or_404(Post, pk=pk)
+    post.add_username(username=username)
+    return redirect('post_detail', pk=pk)
 
 @login_required
 def post_publish(request, pk):

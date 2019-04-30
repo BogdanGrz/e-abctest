@@ -10,6 +10,7 @@ class Post(models.Model):
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
+    viewed_by = models.TextField(default="")
 
     def publish(self):
         self.published_date = timezone.now()
@@ -24,6 +25,12 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("post_detail",kwargs={'pk':self.pk})
 
+    def add_username(self, username):
+        teraz = timezone.now()
+        teraz = teraz.strftime("%Y-%m-%d %H:%M")
+        if username not in self.viewed_by:
+            self.viewed_by += (username + ": " + str(teraz) + "<br>")
+            self.save()
 
     def __str__(self):
         return self.title

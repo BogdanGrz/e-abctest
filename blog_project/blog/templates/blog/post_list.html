@@ -9,11 +9,11 @@
 
         <div class="panel panel-success">
           <div class="panel-heading dec">
-            <a href="{% url 'post_detail' pk=post.pk %}">
+            <a href="{% url 'add_username' pk=post.pk %}">
+          <!--  <a href="{% url 'post_detail' pk=post.pk %}"> -->
             <h3 class="posttitle">{{ post.title }}</h3>
             </div>
           <div class="panel-body non_dec">
-
             <p>{{ post.text|safe|linebreaksbr|truncatewords_html:10 }}  </p>
           </div></a>
             <div class="panel-footer">

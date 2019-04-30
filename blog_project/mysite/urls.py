@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
     url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name="registration/login.html"), name='login'),
-    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(template_name="registration/login.html"), name='logout', kwargs={'next_page': '/'}),
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(template_name="registration/logout.html"), name='logout', kwargs={'next_page': '/'}),
 ]

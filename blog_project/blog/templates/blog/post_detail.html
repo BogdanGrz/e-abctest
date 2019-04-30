@@ -16,6 +16,7 @@
         {% endif %}
 <div class="panel-body">
       <p class="postcontent" >{{ post.text|safe|linebreaksbr }}</p>
+      <p class="postcontent" >{{ post.viewed_by|safe|linebreaksbr }}</p>
 
 
       {% if user.is_authenticated and user.is_superuser %}
