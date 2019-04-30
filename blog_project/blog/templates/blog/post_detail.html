@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+        <h1 class="posttitle">{{ post.title }}</h1>
+
+        {% if post.published_date %}
+            <div class="date postdate">
+                {{ post.published_date }}
+            </div>  </div>
+
+        {% else %}
+            <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">Opublikuj</a>
+        {% endif %}
+<div class="panel-body">
+      <p class="postcontent" >{{ post.text|safe|linebreaksbr }}</p>
+
+
+      {% if user.is_authenticated and user.is_superuser %}
+      <hr>
+      <div style="text-align: right;">
+          <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+          <a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+      {% endif %}
+      </div>
+</div>
+</div>
+
+  <hr>
+
+   <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Dodaj komentarz</a>
+   <br><br><br>
+<div class="panel panel-default">
+  {% for comment in post.comments.all %}
+  <div class="panel body" style="margin: 15px;">
+      {% if comment.approved_comment %}
+              <i>Dodany przez: <strong>{{ comment.author }}</strong>  {{ comment.created_date }}</i>
+              <p>{{ comment.text|safe|linebreaks }}</p>
+
+      {% else %}
+              {% if  user.is_superuser %}
+              <br><br>
+              {{ comment.created_date }}
+              <p>{{ comment.text|safe|linebreaks }}</p>
+              <p>Dodany przez: <strong>{{ comment.author }}</strong></p>
+              <p>Opublikować komentarz ?&nbsp&nbsp&nbsp
+              <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+              <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+              </p>
+              {% else %}
+              <br><br>
+              Komentarz z {{ comment.created_date }}, Dodany przez: <strong>{{ comment.author }}</strong> - Oczekuje na zatwierdzenie
+              {% endif %}
+      {% endif %}
+  </div>
+  {% empty %}
+      <p>brak komentarzy.</p>
+  {% endfor %}
+  </div>
+
+
+{% endblock %}

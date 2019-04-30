@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div class="centerstage">
+
+{% if user.is_authenticated %}
+    {% for post in post_list %}
+
+        <div class="panel panel-success">
+          <div class="panel-heading dec">
+            <a href="{% url 'post_detail' pk=post.pk %}">
+            <h3 class="posttitle">{{ post.title }}</h3>
+            </div>
+          <div class="panel-body non_dec">
+
+            <p>{{ post.text|safe|linebreaksbr|truncatewords_html:10 }}  </p>
+          </div></a>
+            <div class="panel-footer">
+
+                <p>Opublikowany: {{ post.published_date|date:"D, m.Y" }} - ({{ post.published_date|timesince }} temu)</p>
+            <p>Komentarze: {{ post.approve_comments.count }}
+            {% if user.is_superuser and post.not_approve_comments.count %}
+            &nbsp&nbsp&nbsp&nbspKomentarze nie zatwierdzone: {{ post.not_approve_comments.count }}</p>
+            {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<h3>Musisz się zalogować, żeby zobaczyć aktualne informacje</h3>
+{% endif %}
+{% endblock %}
