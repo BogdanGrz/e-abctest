@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h3 class="mt-5">Dodaj przedszkolaka</h3>
+
+    <form method="post" class="post-form">
+       {% csrf_token %}
+       <div class="row">
+         <div class="col-12 col-md-6">
+           {{ form.Imię|as_crispy_field }}
+         </div>
+         <div class="col-12 col-md-6">
+           {{ form.Nazwisko|as_crispy_field }}
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-12 col-md-6">
+           {{ form.nazwa_skrócona|as_crispy_field }}
+         </div>
+         <div class="col-12 col-md-6">
+       {{ form.grupa|as_crispy_field }}
+         </div>
+        </div>
+       <div class="row">
+         <div class="col-12 col-md-6">
+       {{ form.rodzic|as_crispy_field }}
+       <p class="mt-1 ml-1 mb-5 text-muted">*wybierz jednego lub kilku rodziców (trzymajac wsiśnięty klawisz crtl)</p>
+       </div>
+       <div class="col-12 col-md-6">
+
+     </div>
+
+       </div>
+       <button type="submit" class="btn btn-success">Zapisz</button>
+     </form>
+
+
+    <script>var editor = new MediumEditor('.editable');</script>
+
+{% endblock %}

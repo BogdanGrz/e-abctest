@@ -16,20 +16,19 @@
         {% endif %}
 <div class="panel-body">
       <p class="postcontent" >{{ post.text|safe|linebreaksbr }}</p>
-      <p class="postcontent" >{{ post.viewed_by|safe|linebreaksbr }}</p>
-
-
       {% if user.is_authenticated and user.is_superuser %}
+
       <hr>
       <div style="text-align: right;">
           <a class="btn btn-primary" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
           <a class="btn btn-primary" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+      <hr>
+      <p class="viewed" >{{ post.viewed_by|safe|linebreaksbr }}</p>
+
       {% endif %}
       </div>
 </div>
 </div>
-
-  <hr>
 
    <a class="btn btn-primary btn-comment" href="{% url 'add_comment_to_post' pk=post.pk %}">Dodaj komentarz</a>
    <br><br><br>
@@ -37,15 +36,14 @@
   {% for comment in post.comments.all %}
   <div class="panel body" style="margin: 15px;">
       {% if comment.approved_comment %}
-              <i>Dodany przez: <strong>{{ comment.author }}</strong>  {{ comment.created_date }}</i>
+              <p class="comment"><i>Dodany przez: <strong>{{ comment.author }}</strong>  ({{ comment.created_date }})</i></p>
               <p>{{ comment.text|safe|linebreaks }}</p>
 
       {% else %}
               {% if  user.is_superuser %}
               <br><br>
-              {{ comment.created_date }}
+              <p class="comment"><i>Dodany przez: <strong>{{ comment.author }}</strong>  ({{ comment.created_date }})</i></p>
               <p>{{ comment.text|safe|linebreaks }}</p>
-              <p>Dodany przez: <strong>{{ comment.author }}</strong></p>
               <p>Opublikować komentarz ?&nbsp&nbsp&nbsp
               <a class="btn btn-default" href="{% url 'comment_remove' pk=comment.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
               <a class="btn btn-default" href="{% url 'comment_approve' pk=comment.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
@@ -57,7 +55,7 @@
       {% endif %}
   </div>
   {% empty %}
-      <p>brak komentarzy.</p>
+      <p style="margin: 15px;">brak komentarzy.</p>
   {% endfor %}
   </div>
 

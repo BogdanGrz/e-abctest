@@ -1,5 +1,6 @@
-{% extends 'blog/base.html' %}
 
+{% extends 'blog/base.html' %}
+{% load static %}
 {% block content %}
 
 <div class="centerstage">
@@ -7,24 +8,25 @@
 {% if user.is_authenticated %}
     {% for post in post_list %}
 
-        <div class="panel panel-success">
-          <div class="panel-heading dec">
-            <a href="{% url 'add_username' pk=post.pk %}">
-          <!--  <a href="{% url 'post_detail' pk=post.pk %}"> -->
-            <h3 class="posttitle">{{ post.title }}</h3>
-            </div>
-          <div class="panel-body non_dec">
-            <p>{{ post.text|safe|linebreaksbr|truncatewords_html:10 }}  </p>
-          </div></a>
-            <div class="panel-footer">
-
-                <p>Opublikowany: {{ post.published_date|date:"D, m.Y" }} - ({{ post.published_date|timesince }} temu)</p>
-            <p>Komentarze: {{ post.approve_comments.count }}
-            {% if user.is_superuser and post.not_approve_comments.count %}
-            &nbsp&nbsp&nbsp&nbspKomentarze nie zatwierdzone: {{ post.not_approve_comments.count }}</p>
-            {% endif %}
-            </div>
-        </div>
+<div class="card mt-5" style="max-width: 740px;">
+  <a href="{% url 'add_username' pk=post.pk %}">
+  <div class="row no-gutters">
+    <div class="col-2">
+      <img class="card-img" src="{% static "img/info.svg" %}" alt="My image">
+    </div>
+    <div class="col-9">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.text|safe|linebreaksbr|truncatewords_html:10 }} </p>
+        <p class="card-text"><small class="text-muted"><p>Opublikowany: {{ post.published_date|date:" d.m.Y" }} - ({{ post.published_date|timesince }} temu)</p>
+        <p>Komentarze: {{ post.approve_comments.count }}
+        {% if user.is_superuser and post.not_approve_comments.count %}
+        &nbsp&nbsp&nbsp&nbspKomentarze nie zatwierdzone: {{ post.not_approve_comments.count }}</p>
+        {% endif %}</small></p>
+      </div>
+    </div>
+  </div></a>
+</div>
     {% endfor %}
 </div>
 {% else %}

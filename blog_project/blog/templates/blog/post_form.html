@@ -1,12 +1,12 @@
 {% extends 'blog/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <h1>Nowy komunikat</h1>
 
     <form method="POST" class="post-form">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="save btn btn-default">Zapisz</button>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Zapisz</button>
     </form>
 
     <script>var editor = new MediumEditor('.editable');</script>

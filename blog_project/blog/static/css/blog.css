@@ -8,10 +8,16 @@
   text-align: center;
 }
 
-.posttitle{
-  font-family: 'Russo One', sans-serif;
-  font-size: 2.5em;
-  text-align: center;
+.posttitle {
+font-family: 'Russo One', sans-serif;
+text-align: center;
+font-size: 1.5em
+}
+
+.posttitle_list {
+font-family: 'Russo One', sans-serif;
+text-align: left;
+font-size: 1.2em
 }
 
 .postcontent{
@@ -34,6 +40,29 @@
   font-size: 1.5em;
 }
 
+.viewed {
+  font-size: 0.8em;
+  color: grey;
+}
+
+.panel-body-footer {
+  font-size: 0.8em;
+  color: grey;
+  margin: 15px;
+}
+
+.comment {
+  font-size: 0.8em;
+  color: grey;
+}
+
+#login_ico {
+    color: dark-grey;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.3em;
+    margin-right: 5px
+}
+
 
 /*COLOR CHANGER*/
 /*Credit and Source: http://codepen.io/thapliyalshivam/pen/dvgXVO*/
@@ -49,9 +78,18 @@
     text-decoration: none;
 }
 
-.dec a:hover{
+.dec a:hover {
     color: inherit;
     text-decoration: underline;
+}
+
+#block_container
+{
+    text-align:left;
+}
+#bloc1, #bloc2
+{
+    display:inline-block;
 }
 
 @keyframes spinify {

@@ -53,3 +53,31 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+
+class Przedszkolak(models.Model):
+    rodzic = models.ManyToManyField('auth.User')
+    nazwa_skrócona = models.CharField(max_length=20, unique=True)
+    Imię = models.CharField(max_length=20)
+    Nazwisko = models.CharField(max_length=50)
+    grupa = models.ForeignKey('blog.Grupa', default=1, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("post_list")
+
+    class Meta:
+        verbose_name_plural = "Przedszkolaki"
+
+class Grupa(models.Model):
+    nazwa = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.nazwa
+
+    def get_absolute_url(self):
+        return reverse("post_list")
+
+    class Meta:
+        verbose_name_plural = "Grupy"
